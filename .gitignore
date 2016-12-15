@@ -1,0 +1,6 @@
+.hg
+node_modules/*
+build/assets/*
+build/js/*
+build/css/*
+/.hgignore
