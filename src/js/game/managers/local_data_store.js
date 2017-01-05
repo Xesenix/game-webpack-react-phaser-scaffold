@@ -1,10 +1,15 @@
-class DataStoreManager {
+class LocalDataStoreManager {
 	constructor(game) {
 		this.game = game
+		this.observers = {}
 	}
 	
 	set(key, value) {
 		localStorage.setItem(key, JSON.stringify(value))
+		
+		if (typeof this.observers[key] !== 'undefined') {
+			this.observers[key].dispatch(value)
+		}
 	}
 	
 	get(key, defaultValue) {
@@ -18,6 +23,14 @@ class DataStoreManager {
 			}
 		})
 	}
+	
+	watcher(key) {
+		if (typeof this.observers[key] === 'undefined') {
+			this.observers[key] = new Phaser.Signal();
+		}
+		
+		return this.observers[key]
+	}
 }
 
-export default DataStoreManager
+export default LocalDataStoreManager

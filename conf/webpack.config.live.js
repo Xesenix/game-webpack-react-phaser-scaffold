@@ -30,7 +30,13 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
+		new webpack.optimize.UglifyJsPlugin(),
+		new webpack.DefinePlugin({
+			'process.env': {
+				NODE_ENV: JSON.stringify('production')
+			}
+		}),
+		//new webpack.HotModuleReplacementPlugin(),
 		new CopyWebpackPlugin([{
 			from: path.resolve(__dirname, '../public/js'),
 			to: path.resolve(__dirname, '../build/js')
@@ -40,6 +46,9 @@ module.exports = {
 		}, {
 			from: path.resolve(__dirname, '../public/assets'),
 			to: path.resolve(__dirname, '../build/assets')
+		}, {
+			from: path.resolve(__dirname, '../public/fonts'),
+			to: path.resolve(__dirname, '../build/fonts')
 		}])
 	],
 	debug: true,

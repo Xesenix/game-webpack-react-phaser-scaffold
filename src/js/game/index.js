@@ -5,23 +5,28 @@ import MenuState from 'js/game/states/menu'
 import PlayState from 'js/game/states/play'
 import FinishState from 'js/game/states/finish'
 
-import DataStoreManager from 'js/game/managers/data_store'
+import DataStoreManager from 'js/game/managers/local_data_store'
 
-const gameConstructor = (width = window.innerWidth, height = window.innerHeight, containerId = 'game') => {
-	const game = new Phaser.Game(width, height, Phaser.WEBGL, containerId);
+const gameConstructor = (width = window.innerWidth, height = window.innerHeight, renderer = Phaser.AUTO, container = 'game') => {
+	const game = new Phaser.Game(
+		width,
+		height,
+		renderer, // Phaser. AUTO, WEBGL, CANVAS, HEADLESS
+		container // id or element
+	)
 	
-	game.state.add('boot', BootState);
-	game.state.add('preload', PreloadState);
-	game.state.add('intro', IntroState);
-	game.state.add('menu', MenuState);
-	game.state.add('play', PlayState);
-	//game.state.add('finish', FinishState);
+	game.state.add('boot', BootState)
+	game.state.add('preload', PreloadState)
+	game.state.add('intro', IntroState)
+	game.state.add('menu', MenuState)
+	game.state.add('play', PlayState)
+	//game.state.add('finish', FinishState)
 	
-	game.dataStoreManager = new DataStoreManager(game)
+	game.dataStore = new DataStoreManager(game)
 	
-	game.state.start('boot');
+	game.state.start('boot')
 	
-	return game;
+	return game
 }
 
 export default gameConstructor
