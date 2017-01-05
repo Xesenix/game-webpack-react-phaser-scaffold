@@ -21,7 +21,7 @@ module.exports = function (config) {
 		htmlReporter: {
 		outputFile: '../logs/test/result.html',
 			// Optional 
-			pageTitle: 'Hell tower',
+			pageTitle: 'Game',
 			subPageTitle: 'unit test results',
 			groupSuites: true,
 			useCompactStyle: false,
